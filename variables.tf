@@ -72,3 +72,11 @@ variable "nat_gateway_tags" {
   type        = map(string)
   default     = {}
 }
+#######
+resource "aws_eip" "nat" {
+  domain = "vpc"
+}
+
+resource "aws_internet_gateway" "main" {
+  vpc_id = aws_vpc.main.id
+}
