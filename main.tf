@@ -124,7 +124,8 @@ resource "aws_eip" "one" {
 }
 
 resource "aws_nat_gateway" "main" {
-  allocation_id = aws_eip.nat.id
+  #allocation_id = aws_eip.nat.id
+  allocation_id = aws_eip.one.id
   subnet_id     = aws_subnet.public[0].id # we are creating US East 1a AZ
  tags = merge(
         local.common_tags,
@@ -137,7 +138,8 @@ resource "aws_nat_gateway" "main" {
 
   # To ensure proper ordering, it is recommended to add an explicit dependency
   # on the Internet Gateway for the VPC.
-  depends_on = [aws_internet_gateway.main]
+  depends_on = [aws_internet_gateway.gw]
+  #depends_on = [aws_internet_gateway.main]
 }
 
 resource "aws_route" "private" {
