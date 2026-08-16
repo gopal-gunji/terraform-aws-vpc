@@ -126,7 +126,6 @@ resource "aws_eip" "one" {
 resource "aws_nat_gateway" "main" {
   allocation_id = aws_eip.nat.id
   subnet_id     = aws_subnet.public[0].id # we are creating US East 1a AZ
-
  tags = merge(
         local.common_tags,
         # roboshop-dev
